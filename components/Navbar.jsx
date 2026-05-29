@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import Image from 'next/image'
 
 const links = [
   { href: '#mission',   label: 'Notre mission' },
@@ -40,10 +40,17 @@ export default function Navbar() {
         <a
           href="#"
           onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-          className="flex items-center gap-3 group"
+          className="flex items-center gap-2 group"
         >
-          <div className="w-9 h-9 rounded-lg bg-green-gradient flex items-center justify-center font-display font-bold text-white text-sm shadow-md">
-            GC
+          <div className="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.55)] transition-all duration-300">
+            <Image
+              src="/logo_transparent.png"
+              alt="Gesconnect logo"
+              fill
+              sizes="48px"
+              className="object-contain"
+              priority
+            />
           </div>
           <span className="font-display font-bold text-white text-lg tracking-tight">
             Gesconnect

@@ -1,4 +1,6 @@
 'use client'
+import Image from 'next/image'
+
 export default function Footer() {
   const year = new Date().getFullYear()
 
@@ -15,8 +17,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-green-gradient flex items-center justify-center font-display font-bold text-white text-sm">
-                GC
+              <div className="relative w-10 h-10 flex-shrink-0">
+                <Image
+                  src="/logo_transparent.png"
+                  alt="Gesconnect logo"
+                  fill
+                  sizes="40px"
+                  className="object-contain"
+                />
               </div>
               <span className="font-display font-bold text-white text-lg">Gesconnect Consulting</span>
             </div>
