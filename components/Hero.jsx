@@ -2,17 +2,18 @@
 import { useEffect, useRef, useState } from 'react'
 
 function Counter({ target, suffix = '', prefix = '' }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(target)
   const ref = useRef(null)
   const started = useRef(false)
 
   useEffect(() => {
+    setCount(0)
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true
-          const duration = 1800
-          const steps = 60
+          const duration = 900
+          const steps = 40
           const stepValue = target / steps
           let current = 0
           const timer = setInterval(() => {
@@ -22,7 +23,7 @@ function Counter({ target, suffix = '', prefix = '' }) {
           }, duration / steps)
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }
     )
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
