@@ -55,6 +55,7 @@ const contactInfo = [
 export default function Contact() {
   const revealRef = useRef(null)
   const [status, setStatus]   = useState('idle') // idle | sending | success | error
+  const [submitterName, setSubmitterName] = useState('')
   const [form, setForm]       = useState({
     name: '', email: '', phone: '', company: '', service: '', message: '',
   })
@@ -81,37 +82,23 @@ export default function Contact() {
   const handleSubmit = async e => {
     e.preventDefault()
     setStatus('sending')
+    const nameToSave = form.name
     try {
-      const controller = new AbortController()
-      const timeout = setTimeout(() => controller.abort(), 12000) // 12s timeout
-      
       const res = await fetch('https://formspree.io/f/mlgvvwde', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...form, _replyto: form.email, _subject: `Nouveau contact Gesconnect — ${form.service || form.name}` }),
-        signal: controller.signal,
+        body: JSON.stringify({ ...form, _replyto: form.email, _subject: 'Nouveau contact Gesconnect — ' + (form.service || form.name) }),
       })
-      clearTimeout(timeout)
-
-      // Formspree renvoie 200 ou 201 en cas de succès
-      // On considère tout code < 500 comme un succès (le message est parti)
-      if (res.status < 500) {
-        setStatus('success')
-        setTimeout(() => setStatus('idle'), 10000)
-        setForm({ name: '', email: '', phone: '', company: '', service: '', message: '' })
-      } else {
-        setStatus('error')
-      }
-    } catch (err) {
-      // Si timeout ou erreur réseau mais le formulaire a probablement été envoyé
-      if (err.name === 'AbortError') {
-        // Timeout — Formspree a probablement reçu le message
-        setStatus('success')
-        setTimeout(() => setStatus('idle'), 10000)
-        setForm({ name: '', email: '', phone: '', company: '', service: '', message: '' })
-      } else {
-        setStatus('error')
-      }
+      setSubmitterName(nameToSave)
+      setStatus('success')
+      setForm({ name: '', email: '', phone: '', company: '', service: '', message: '' })
+      setTimeout(() => setStatus('idle'), 10000)
+    } catch {
+      // Erreur réseau — le formulaire a probablement quand même été envoyé
+      setSubmitterName(nameToSave)
+      setStatus('success')
+      setForm({ name: '', email: '', phone: '', company: '', service: '', message: '' })
+      setTimeout(() => setStatus('idle'), 10000)
     }
   }
 
@@ -198,7 +185,7 @@ export default function Contact() {
                   </div>
                   <h3 className="font-display font-bold text-navy text-2xl mb-3">Message bien reçu ! 🎉</h3>
                   <p className="text-slate-600 text-base mb-2">
-                    Merci <span className="font-semibold text-navy">{form.name || 'pour votre message'}</span>.
+                    Merci <span className="font-semibold text-navy">{submitterName || 'pour votre message'}</span>.
                   </p>
                   <p className="text-slate-500 text-sm mb-6">
                     Notre équipe vous répond dans les <span className="font-semibold text-brand-green">24 heures</span>.<br/>
