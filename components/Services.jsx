@@ -127,6 +127,17 @@ export default function Services() {
     return () => observer.disconnect()
   }, [])
 
+  // Fix: rendre le contenu visible immédiatement au changement d'onglet
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const section = document.querySelector('#services')
+      if (section) {
+        section.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'))
+      }
+    }, 30)
+    return () => clearTimeout(timer)
+  }, [activeGroup])
+
   const scrollToContact = e => {
     e.preventDefault()
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
@@ -181,7 +192,7 @@ export default function Services() {
           {current.services.map((s, i) => (
             <div
               key={s.num}
-              className={`reveal reveal-d${i + 1} group bg-white/4 hover:bg-white/7 border border-white/8 hover:border-white/16 rounded-2xl p-7 transition-all duration-300 border-l-2 ${current.accent}`}
+              className={`group bg-white/4 hover:bg-white/7 border border-white/8 hover:border-white/16 rounded-2xl p-7 transition-all duration-300 border-l-2 ${current.accent}`}
             >
               <div className="flex items-start justify-between mb-4">
                 <span className={`font-display font-bold text-4xl opacity-30 group-hover:opacity-60 transition-opacity ${current.numColor}`}>
