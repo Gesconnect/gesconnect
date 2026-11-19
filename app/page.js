@@ -91,7 +91,7 @@ export default function Home() {
             <h2 className="h2">Une application par métier</h2>
             <p>Chacune a son site, ses tarifs en FCFA et un essai gratuit. Gesconnect les conçoit, les héberge et les fait évoluer.</p>
           </div>
-          <div className="grid" style={{ '--min': '330px', gap: 20 }}>
+          <div className="grid home-apps" style={{ '--min': '330px', gap: 20 }}>
             {APPS.map((a) => <AppCard key={a.slug} app={a} />)}
             <div className="card-dark">
               <h3 className="h3" style={{ color: '#fff' }}>Hôtel, école, pharmacie, garage…</h3>

@@ -34,7 +34,7 @@ export default function DashboardMock() {
 
         <div className="dash__kpis">
           <div><small>Ventes</small><b>18,4 M F</b><em className="up">▲ 12 %</em></div>
-          <div><small>Marge brute</small><b>31 %</b><em className="up">▲ 2 pts</em></div>
+          <div><small>Marge</small><b>31 %</b><em className="up">▲ 2 pts</em></div>
           <div><small>Impayés</small><b>2,1 M F</b><em className="down">▼ 8 %</em></div>
         </div>
 

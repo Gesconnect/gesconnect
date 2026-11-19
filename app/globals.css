@@ -477,3 +477,22 @@ button { font: inherit; }
 .device__screen { min-height: 380px; }
 .appsbar__q { padding-top: 10px; }
 @media (min-width: 1200px) { .appsbar a, .appsbar button { padding-block: 10px; } }
+
+/* Page Guides : visuel du guide à la une */
+.feat-vis { flex: 1 1 340px; min-height: 240px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 28px 24px 64px; background: radial-gradient(360px 240px at 70% 30%, var(--fv-glow), transparent 70%), var(--fv-bg); }
+.feat-vis__screen { width: min(280px, 100%); padding: 16px; border-radius: 18px; background: #fff; color: var(--navy); box-shadow: 0 24px 50px rgba(0, 0, 0, .35); transform: rotate(-2deg); display: flex; flex-direction: column; gap: 8px; }
+.feat-vis__screen small { font-size: 12px; color: var(--muted); }
+.feat-vis__screen strong { font-family: var(--font-title); font-weight: 800; font-size: 17px; margin-top: -6px; }
+.feat-vis__screen p { display: flex; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 10px; background: var(--bg); font-size: 14px; }
+.feat-vis__screen b.neg { color: #B42318; }
+.feat-vis__screen em { font-style: normal; font-size: 13px; font-weight: 700; padding: 9px 12px; border-radius: 10px; background: #FFF4D6; color: #6B4E00; }
+.feat-vis__by { position: absolute; left: 24px; bottom: 20px; display: inline-flex; align-items: center; gap: 10px; color: #F6EFE4; font-size: 14px; font-weight: 600; }
+.feat-vis__by img { border-radius: 10px; }
+
+/* Carte d'application cliquable en entier (plus simple au doigt) */
+.appcard { position: relative; }
+.appcard h3 a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.appcard h3 a:focus-visible::after { outline: 3px solid var(--green); outline-offset: 2px; }
+.appcard .link-arrow { position: relative; z-index: 1; }
+/* Accueil sur téléphone : cartes plus courtes (la démo est déjà en haut de page) */
+@media (max-width: 600px) { .home-apps .appcard__shot { display: none; } }

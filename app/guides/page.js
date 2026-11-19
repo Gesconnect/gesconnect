@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { GUIDES } from '@/lib/guides'
+import { getApp } from '@/lib/apps'
 import { waLink, og } from '@/lib/site'
 
 export const metadata = {
@@ -14,6 +15,8 @@ export default function Guides() {
   const published = GUIDES.filter((g) => g.published)
   const featured = published[0]
   const others = published.slice(1)
+  const app = featured.app ? getApp(featured.app) : null
+  const vis = featured.visual || (app ? { sub: app.phone.sub, title: app.phone.title, rows: app.phone.rows, alert: app.phone.alert } : null)
   return (
     <>
       <section className="page-head">
@@ -26,11 +29,21 @@ export default function Guides() {
       <section className="sec" style={{ paddingTop: 36 }}>
         <div className="wrap">
           <Link href={`/guides/${featured.slug}`} className="appcard" style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            <div style={{ flex: '1 1 340px', minHeight: 220, background: 'radial-gradient(360px 240px at 70% 30%, rgba(242,165,49,.35), transparent 70%), #15120F', display: 'flex', alignItems: 'flex-end', padding: 24 }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10, color: '#F6EFE4', fontSize: 14, fontWeight: 600 }}>
-                <img src="/apps/maquis360.webp" alt="" width="36" height="36" style={{ borderRadius: 10 }} />
-                Avec l’expérience de Maquis360
-              </span>
+            <div className="feat-vis" style={{ '--fv-bg': app ? app.theme.hero : '#0F1E4A', '--fv-glow': app ? app.theme.glow : 'rgba(34,197,94,.3)' }}>
+              {vis ? (
+                <div className="feat-vis__screen" aria-hidden="true">
+                  <small>{vis.sub}</small>
+                  <strong>{vis.title}</strong>
+                  {vis.rows.map(([k, v]) => <p key={k}><span>{k}</span><b className={String(v).startsWith('−') ? 'neg' : undefined}>{v}</b></p>)}
+                  {vis.alert ? <em>{vis.alert}</em> : null}
+                </div>
+              ) : null}
+              {app ? (
+                <span className="feat-vis__by">
+                  <img src={app.icon} alt="" width="36" height="36" />
+                  Avec l’expérience de {app.name}
+                </span>
+              ) : null}
             </div>
             <div style={{ flex: '1 1 420px', minWidth: 0, padding: 'clamp(22px, 3vw, 36px)' }}>
               <p className="eyebrow" style={{ color: featured.ink }}>{featured.theme} · À la une</p>
