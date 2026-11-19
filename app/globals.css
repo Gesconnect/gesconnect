@@ -465,3 +465,15 @@ button { font: inherit; }
 /* Slogan Gesconnect */
 .hx__slogan { margin: -6px 0 18px; font-family: var(--font-brand); font-weight: 700; font-size: clamp(17px, 1.7vw, 21px); line-height: 1.35; letter-spacing: -0.01em; color: var(--hx-ink); opacity: .92; }
 .ftr__slogan { margin-top: 12px; font-family: var(--font-brand); font-weight: 700; font-size: 16px; color: #fff; }
+
+/* Haut de l'accueil plus compact : le bandeau « Dès 5 000 F » visible dès le premier écran */
+.hx__in { padding-block: clamp(20px, 2.6vw, 36px) clamp(28px, 3vw, 44px); gap: 28px 48px; }
+.hx__kicker { margin-bottom: 10px; }
+.hx__slogan { margin: 0 0 14px; }
+.hx .h1 { font-size: clamp(32px, 4.2vw, 54px); line-height: 1.05; }
+.hx .lead { margin-top: 16px; }
+.hx .btns { margin-top: 22px; }
+.hx__offer { margin-top: 12px; }
+.device__screen { min-height: 380px; }
+.appsbar__q { padding-top: 10px; }
+@media (min-width: 1200px) { .appsbar a, .appsbar button { padding-block: 10px; } }
