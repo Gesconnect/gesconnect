@@ -446,3 +446,22 @@ button { font: inherit; }
   .hx .h1 { font-size: clamp(32px, 5vw, 44px); }
 }
 @media (max-width: 480px) { .dash__chart-head span:last-child { display: none; } }
+
+/* Barre « Que gérez-vous ? » : tout visible d'un coup d'œil sur téléphone et tablette, sans défiler de côté */
+@media (max-width: 1199px) {
+  .appsbar__in { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; overflow: visible; padding-block: 10px 16px; }
+  .appsbar a, .appsbar button { flex: none; min-width: 0; padding: 10px; border: 1.5px solid var(--line); border-radius: 14px; background: #fff; }
+  .appsbar button[aria-pressed="true"] { border-color: var(--bar-accent, var(--green)); box-shadow: inset 0 0 0 1px var(--bar-accent, var(--green)); }
+  .appsbar strong { white-space: normal; font-size: 15px; line-height: 1.2; }
+  .appsbar small { white-space: normal; line-height: 1.3; }
+}
+@media (max-width: 599px) {
+  .appsbar__in { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .appsbar a, .appsbar button { gap: 10px; padding: 10px 8px; }
+  .appsbar img, .appsbar__ico { width: 34px; height: 34px; }
+  .appsbar__in > :last-child { grid-column: 1 / -1; }
+}
+
+/* Slogan Gesconnect */
+.hx__slogan { margin: -6px 0 18px; font-family: var(--font-brand); font-weight: 700; font-size: clamp(17px, 1.7vw, 21px); line-height: 1.35; letter-spacing: -0.01em; color: var(--hx-ink); opacity: .92; }
+.ftr__slogan { margin-top: 12px; font-family: var(--font-brand); font-weight: 700; font-size: 16px; color: #fff; }
