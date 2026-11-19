@@ -187,9 +187,10 @@ export default function ArticleMaquis() {
           </div>
 
           <div style={{ marginTop: 48, paddingTop: 24, borderTop: '1px solid var(--line)' }}>
-            <p style={{ marginTop: 0, fontWeight: 700, color: 'var(--navy)' }}>À lire aussi</p>
+            <p style={{ marginTop: 0, fontWeight: 700, color: 'var(--navy)' }}>À découvrir aussi</p>
             <p className="muted" style={{ fontSize: 16 }}>
-              Les prochains guides arrivent bientôt : <Link href="/guides">voir les guides à paraître</Link>.
+              <Link href="/applications/maquis360">Maquis360, la caisse des maquis, bars et caves</Link> ·{' '}
+              <Link href="/applications">toutes les applications Gesconnect</Link> · <Link href="/guides">tous les guides</Link>
             </p>
           </div>
         </div>

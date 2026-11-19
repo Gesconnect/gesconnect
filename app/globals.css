@@ -21,7 +21,7 @@
   --radius: 24px;
   --font-body: var(--font-dm), 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-title: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-brand: var(--font-syne), 'Syne', system-ui, sans-serif;
+  --font-brand: var(--font-sora), 'Sora', system-ui, sans-serif;
   --shadow: 0 1px 2px rgba(15, 30, 74, .06), 0 12px 32px rgba(15, 30, 74, .07);
 }
 
@@ -73,7 +73,7 @@ button { font: inherit; }
 .hdr__in { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding-block: 12px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; flex: 1 1 auto; }
 .brand img { width: 30px; height: 35px; object-fit: contain; }
-.brand span { font-family: var(--font-brand); font-weight: 800; font-size: 18px; }
+.brand span { font-family: var(--font-brand); font-weight: 700; font-size: 19px; letter-spacing: -0.02em; }
 .hdr__cta.btn--sm { padding: 0 14px; font-size: 14px; }
 .nav { order: 3; flex: 1 1 100%; display: flex; gap: 22px; overflow-x: auto; white-space: nowrap; font-size: 15px; font-weight: 500; scrollbar-width: none; }
 .nav::-webkit-scrollbar { display: none; }
@@ -82,7 +82,7 @@ button { font: inherit; }
 .hdr__cta { order: 2; }
 @media (min-width: 960px) {
   .hdr__in { gap: 10px 28px; }
-  .brand span { font-size: 20px; }
+  .brand span { font-size: 21px; }
   .hdr__cta.btn--sm { padding: 0 18px; font-size: 15px; }
   .brand { flex: 0 0 auto; }
   .nav { order: 2; flex: 1 1 auto; justify-content: center; }
@@ -184,7 +184,7 @@ button { font: inherit; }
 .page-head .lead { margin-top: 16px; max-width: 660px; color: var(--muted); }
 
 /* Page produit : les couleurs viennent de chaque application (variables posées sur <main>) */
-.p-hero { color: #fff; background: radial-gradient(520px 360px at 85% 25%, var(--glow), transparent 70%), var(--hero); }
+.p-hero { color: var(--hero-ink, #fff); background: radial-gradient(520px 360px at 85% 25%, var(--glow), transparent 70%), var(--hero); }
 .p-hero .crumbs { color: var(--crumb); padding-top: 18px; }
 .p-hero__in { display: flex; flex-wrap: wrap; gap: 40px 56px; align-items: center; padding-block: clamp(24px, 4vw, 48px) clamp(48px, 7vw, 88px); }
 .p-hero__txt { flex: 1 1 520px; min-width: 0; }
@@ -195,8 +195,13 @@ button { font: inherit; }
 .p-hero .btns { margin-top: 28px; }
 .btn--accent { background: var(--accent); color: var(--on-accent); }
 .chips { margin-top: 28px; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
-.chips li { font-size: 14px; padding: 8px 14px; border-radius: 999px; background: rgba(255, 255, 255, .10); }
-.chips li.hi { font-weight: 700; background: var(--chip-hi); }
+.chips li { font-size: 14px; padding: 8px 14px; border-radius: 999px; background: var(--chip-bg, rgba(255, 255, 255, .10)); color: var(--chip-ink, inherit); border: 1px solid var(--chip-line, transparent); }
+.chips li.hi { font-weight: 700; background: var(--chip-hi); color: var(--chip-hi-ink, inherit); border-color: transparent; }
+.p-hero .btn--ghost { color: var(--hero-ink, #fff); background: var(--ghost-bg, rgba(255, 255, 255, .08)); border-color: var(--ghost-line, rgba(255, 255, 255, .25)); }
+.p-hero--ruler::after { content: ''; display: block; height: 22px; background:
+  repeating-linear-gradient(90deg, rgba(11, 37, 69, .55) 0 1.5px, transparent 1.5px 12px) top / 100% 7px no-repeat,
+  repeating-linear-gradient(90deg, rgba(11, 37, 69, .75) 0 2px, transparent 2px 60px) top / 100% 13px no-repeat,
+  #F26B1D; }
 .p-hero__vis { flex: 1 1 280px; min-width: 0; display: flex; justify-content: center; }
 .mock { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 .mock__head { padding: 16px 16px 14px; color: #fff; }
@@ -281,4 +286,5 @@ button { font: inherit; }
 
 /* Ajustements téléphone */
 .ftr .brand, .ftr .brand:hover { color: #fff; }
-@media (max-width: 420px) { .hdr__cta { display: none; } }
+@media (max-width: 340px) { .hdr__cta { display: none; } }
+.mock__row strong { white-space: nowrap; }

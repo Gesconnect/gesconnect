@@ -2,6 +2,7 @@ import Link from 'next/link'
 import AppCard from '@/components/site/AppCard'
 import { APPS } from '@/lib/apps'
 import { GUIDES } from '@/lib/guides'
+import { waLink } from '@/lib/site'
 
 export const metadata = {
   alternates: { canonical: '/' },
@@ -15,7 +16,7 @@ const SERVICES = [
 ]
 
 export default function Home() {
-  const guides = [GUIDES.find((g) => g.published), ...GUIDES.filter((g) => !g.published).slice(0, 2)]
+  const guides = GUIDES.filter((g) => g.published).slice(0, 2)
   return (
     <>
       <section className="hero">
@@ -24,8 +25,8 @@ export default function Home() {
             <p className="hero__kicker">Studio tech ivoirien · Abidjan</p>
             <h1 className="h1">Votre activité, gérée depuis votre téléphone.</h1>
             <p className="lead">
-              Cinq applications de gestion déjà en service pour les PME, commerces et organisations d’Afrique
-              francophone : légères, pensées pour les petits réseaux, payables en Mobile Money.
+              Des applications de gestion pour les PME, commerces et organisations d’Afrique francophone :
+              légères, pensées pour les petits réseaux, payables en Mobile Money.
             </p>
             <div className="btns">
               <a href="#applications" className="btn btn--green">Trouver mon application</a>
@@ -125,17 +126,16 @@ export default function Home() {
             <Link href="/guides" className="link-arrow" style={{ color: 'var(--green-ink)' }}>Tous les guides →</Link>
           </div>
           <div className="grid" style={{ '--min': '300px' }}>
-            {guides.map((g) =>
-              g.published ? (
-                <Link key={g.slug} href={`/guides/${g.slug}`} className="guide-card" style={{ '--c': g.color, '--ci': g.ink }}>
-                  <small>{g.theme}</small><strong>{g.title}</strong><em>{g.readingTime}</em>
-                </Link>
-              ) : (
-                <div key={g.slug} className="guide-card" style={{ '--c': g.color, '--ci': g.ink }}>
-                  <small>{g.theme}</small><strong>{g.title}</strong><em>Bientôt</em>
-                </div>
-              )
-            )}
+            {guides.map((g) => (
+              <Link key={g.slug} href={`/guides/${g.slug}`} className="guide-card" style={{ '--c': g.color, '--ci': g.ink }}>
+                <small>{g.theme}</small><strong>{g.title}</strong><em>{g.readingTime}</em>
+              </Link>
+            ))}
+            <a className="card-dark" style={{ textDecoration: 'none', padding: 22, borderRadius: 20 }} href={waLink('Bonjour Gesconnect, je souhaite recevoir les nouveaux guides sur WhatsApp.')} target="_blank" rel="noopener">
+              <strong style={{ fontSize: 19, lineHeight: 1.3 }}>Recevoir les nouveaux guides sur WhatsApp</strong>
+              <p style={{ fontSize: 15 }}>Un message quand un guide sort, pas plus.</p>
+              <span className="link-arrow" style={{ color: 'var(--mint)', minHeight: 0 }}>M’abonner →</span>
+            </a>
           </div>
         </div>
       </section>

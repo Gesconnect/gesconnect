@@ -11,7 +11,6 @@ export const metadata = {
 
 export default function Guides() {
   const featured = GUIDES.find((g) => g.published)
-  const next = GUIDES.filter((g) => !g.published)
   return (
     <>
       <section className="page-head">
@@ -37,15 +36,6 @@ export default function Guides() {
               <p className="muted" style={{ marginTop: 16, fontSize: 14 }}>L’équipe Gesconnect · {featured.readingTime}</p>
             </div>
           </Link>
-
-          <h2 className="eyebrow" style={{ margin: '44px 0 16px', color: 'var(--muted)' }}>À paraître</h2>
-          <div className="grid" style={{ gap: 14 }}>
-            {next.map((g) => (
-              <div key={g.slug} className="guide-card" style={{ '--c': g.color, '--ci': g.ink }}>
-                <small>{g.theme}</small><strong>{g.title}</strong><em>Bientôt</em>
-              </div>
-            ))}
-          </div>
 
           <div className="card-dark" style={{ marginTop: 40, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: '18px 36px' }}>
             <div style={{ flex: '2 1 420px', minWidth: 0 }}>

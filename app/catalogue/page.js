@@ -5,7 +5,7 @@ import { waLink } from '@/lib/site'
 export const metadata = {
   title: 'Catalogue : une application de gestion pour chaque métier',
   description:
-    'Commerce, restauration, élevage, santé, éducation, artisanat, associations, immobilier : le catalogue des applications de gestion Gesconnect, disponibles, bientôt ou sur demande.',
+    'Commerce, restauration, élevage, santé, éducation, artisanat, associations, immobilier : le catalogue des applications de gestion Gesconnect, prêtes à l’emploi ou construites sur demande.',
   alternates: { canonical: '/catalogue' },
 }
 
@@ -16,7 +16,7 @@ export default function Catalogue() {
         <div className="wrap">
           <nav className="crumbs" aria-label="Fil d’Ariane"><Link href="/">Accueil</Link><span aria-hidden="true">›</span><span>Catalogue</span></nav>
           <h1 className="h1">Une application de gestion pour chaque métier</h1>
-          <p className="lead">Cinq applications sont disponibles dès aujourd’hui. Les autres sont en préparation ou réalisées à la demande, sur la même base : téléphone, petits réseaux, Mobile Money.</p>
+          <p className="lead">Certaines applications sont prêtes à l’emploi. Pour les autres métiers, nous construisons l’application à la demande, sur la même base : téléphone, petits réseaux, Mobile Money.</p>
         </div>
       </section>
       <section className="sec" style={{ paddingTop: 8 }}>

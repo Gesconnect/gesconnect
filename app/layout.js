@@ -26,11 +26,11 @@ const jakarta = localFont({
   variable: '--font-jakarta',
   display: 'swap',
 })
-const syne = localFont({
-  src: [{ path: './fonts/syne-latin-800-normal.woff2', weight: '800', style: 'normal' }],
-  variable: '--font-syne',
+// Police du nom « Gesconnect » à côté du logo.
+const sora = localFont({
+  src: [{ path: './fonts/sora-latin-700-normal.woff2', weight: '700', style: 'normal' }],
+  variable: '--font-sora',
   display: 'swap',
-  preload: false,
 })
 
 export const metadata = {
@@ -50,7 +50,7 @@ export const metadata = {
     siteName: 'Gesconnect',
     title: 'Gesconnect — Votre activité, gérée depuis votre téléphone',
     description:
-      'Cinq applications de gestion déjà en service pour les PME, commerces et organisations d’Afrique francophone.',
+      'Des applications de gestion pour les PME, commerces et organisations d’Afrique francophone, qui marchent sur un téléphone simple.',
     images: [{ url: '/og_image.jpg', width: 1200, height: 630, alt: 'Gesconnect' }],
   },
   twitter: { card: 'summary_large_image' },
@@ -85,7 +85,7 @@ const organization = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`${dm.variable} ${jakarta.variable} ${syne.variable}`}>
+    <html lang="fr" className={`${dm.variable} ${jakarta.variable} ${sora.variable}`}>
       <body>
         <Header />
         <main id="contenu">{children}</main>

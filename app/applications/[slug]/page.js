@@ -29,6 +29,10 @@ export default function ProductPage({ params }) {
     '--hero': t.hero, '--glow': t.glow, '--accent': t.accent, '--on-accent': t.onAccent, '--kicker': t.kicker,
     '--muted-c': t.muted, '--crumb': t.crumb, '--chip-hi': t.chipHi, '--tint': t.tint, '--tile-ink': t.tileInk,
     '--label-ink': t.labelInk, '--deep': t.deep,
+    ...(t.light ? {
+      '--hero-ink': t.light.ink, '--chip-bg': t.light.chipBg, '--chip-ink': t.light.chipInk, '--chip-line': t.light.chipLine,
+      '--chip-hi-ink': t.light.chipHiInk, '--ghost-bg': t.light.ghostBg, '--ghost-line': t.light.ghostLine,
+    } : {}),
   }
   const url = `${SITE.url}/applications/${app.slug}`
 
@@ -64,12 +68,12 @@ export default function ProductPage({ params }) {
 
   return (
     <div style={vars}>
-      <section className="p-hero">
+      <section className={`p-hero${t.edge === 'ruler' ? ' p-hero--ruler' : ''}`}>
         <div className="wrap">
           <nav className="crumbs" aria-label="Fil d’Ariane">
             <Link href="/">Accueil</Link><span aria-hidden="true">›</span>
             <Link href="/applications">Applications</Link><span aria-hidden="true">›</span>
-            <span style={{ color: '#fff' }}>{app.name}</span>
+            <span style={{ color: 'var(--hero-ink, #fff)' }}>{app.name}</span>
           </nav>
           <div className="p-hero__in">
             <div className="p-hero__txt">

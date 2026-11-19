@@ -39,7 +39,7 @@ export default function APropos() {
             </p>
             <p style={{ marginTop: 16 }}>
               Nous faisons l’inverse : des applications simples, une par métier, qui tiennent dans un téléphone, continuent sans
-              réseau et encaissent en Mobile Money. Cinq sont déjà en service :{' '}
+              réseau et encaissent en Mobile Money. Elles sont déjà au travail :{' '}
               {APPS.map((a, i) => (
                 <span key={a.slug}>
                   <Link href={`/applications/${a.slug}`}>{a.name}</Link>{i < APPS.length - 2 ? ', ' : i === APPS.length - 2 ? ' et ' : '.'}
@@ -64,8 +64,8 @@ export default function APropos() {
           <div><h2 className="h2">L’équipe</h2></div>
           <div style={{ fontSize: 17, color: 'var(--text)' }}>
             <p>
-              Gesconnect a été fondée par Yves Alla, directeur général, et Jean-Marie Alla, directeur technique. L’équipe conçoit,
-              développe, héberge et accompagne chaque application, de la première démonstration à la formation des utilisateurs.
+              Notre équipe, basée à Abidjan, conçoit, développe, héberge et accompagne chaque application, de la première
+              démonstration à la formation des utilisateurs.
             </p>
             <div className="btns" style={{ marginTop: 24 }}>
               <Link href="/contact" className="btn btn--navy">Nous contacter</Link>
