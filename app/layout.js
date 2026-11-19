@@ -5,7 +5,7 @@ import Header from '@/components/site/Header'
 import Footer from '@/components/site/Footer'
 import WhatsAppFloat from '@/components/site/WhatsAppFloat'
 import JsonLd from '@/components/site/JsonLd'
-import { SITE } from '@/lib/site'
+import { SITE, og } from '@/lib/site'
 import { APPS } from '@/lib/apps'
 
 // Polices hébergées sur le site (aucun appel à Google Fonts) : plus rapide sur petit réseau.
@@ -43,16 +43,12 @@ export const metadata = {
     'Studio tech ivoirien : applications de gestion qui marchent sur un téléphone simple et encaissent en Mobile Money. Cheptelio, Maquis360, Quinca360, Amicalo, MonArche.',
   applicationName: 'Gesconnect',
   alternates: { canonical: '/' },
-  openGraph: {
-    type: 'website',
-    locale: 'fr_CI',
-    url: SITE.url,
-    siteName: 'Gesconnect',
+  openGraph: og({
     title: 'Gesconnect — Votre activité, gérée depuis votre téléphone',
     description:
       'Des applications de gestion pour les PME, commerces et organisations d’Afrique francophone, qui marchent sur un téléphone simple.',
-    images: [{ url: '/og_image.jpg', width: 1200, height: 630, alt: 'Gesconnect' }],
-  },
+    path: '',
+  }),
   twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
   icons: { icon: '/favicon.png', apple: '/logo_512.png' },

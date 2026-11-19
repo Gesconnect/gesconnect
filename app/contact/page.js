@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import ContactForm from '@/components/site/ContactForm'
-import { SITE, waLink } from '@/lib/site'
+import { SITE, waLink, og } from '@/lib/site'
 import { APPS } from '@/lib/apps'
 
 export const metadata = {
@@ -8,6 +8,7 @@ export const metadata = {
   description:
     'Demandez une démonstration gratuite de Cheptelio, Maquis360, Quinca360, Amicalo ou MonArche, ou parlez-nous de votre projet. Réponse rapide sur WhatsApp.',
   alternates: { canonical: '/contact' },
+  openGraph: og({ title: 'Contact et démonstration gratuite', description: 'Demandez une démonstration gratuite de Cheptelio, Maquis360, Quinca360, Amicalo ou MonArche, ou parlez-nous de votre projet. Réponse rapide sur WhatsApp.', path: '/contact' }),
 }
 
 const SUBJECTS = [

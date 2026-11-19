@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import { APPS } from '@/lib/apps'
+import { og } from '@/lib/site'
 
 export const metadata = {
   title: 'À propos : un studio tech ivoirien',
   description:
     'Gesconnect Consulting est un studio tech basé à Abidjan qui conçoit des applications de gestion pour les PME, commerces et organisations d’Afrique francophone.',
   alternates: { canonical: '/a-propos' },
+  openGraph: og({ title: 'À propos : un studio tech ivoirien', description: 'Gesconnect Consulting est un studio tech basé à Abidjan qui conçoit des applications de gestion pour les PME, commerces et organisations d’Afrique francophone.', path: '/a-propos' }),
 }
 
 const PRINCIPES = [

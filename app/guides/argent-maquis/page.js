@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import JsonLd from '@/components/site/JsonLd'
 import { GUIDES } from '@/lib/guides'
-import { SITE, appLink } from '@/lib/site'
+import { SITE, appLink, og } from '@/lib/site'
 
 const G = GUIDES.find((g) => g.slug === 'argent-maquis')
 const URL_PAGE = `${SITE.url}/guides/${G.slug}`
@@ -10,14 +10,14 @@ export const metadata = {
   title: G.metaTitle,
   description: G.metaDescription,
   alternates: { canonical: `/guides/${G.slug}` },
-  openGraph: { type: 'article', title: G.title, description: G.metaDescription, url: URL_PAGE, publishedTime: G.date },
+  openGraph: og({ type: 'article', title: G.title, description: G.metaDescription, path: `/guides/${G.slug}`, image: `/og/guides/${G.slug}`, publishedTime: G.date }),
 }
 
 const FUITES = [
   {
     id: 'bouteilles',
     title: 'Les bouteilles qui disparaissent du frigo',
-    text: 'Casse non déclarée, bouteille offerte à un ami sans être notée, consommation du personnel pendant le service, vol : les causes sont nombreuses. Sans comptage régulier, impossible de savoir laquelle coûte le plus cher à votre maquis.',
+    text: 'Casse non déclarée, bouteille offerte à un ami sans être notée, consommation du personnel pendant le service, vol : les causes sont nombreuses. Sans comptage régulier, impossible de savoir laquelle coûte le plus cher à votre maquis.',
     fix: [
       'Séparer le stock du magasin et celui du frigo-bar, et noter chaque transfert de l’un à l’autre.',
       'Compter le frigo à l’ouverture et à la clôture.',
@@ -35,24 +35,24 @@ const FUITES = [
     id: 'ardoises',
     title: 'Les ardoises qui ne reviennent pas',
     text: 'Le crédit fidélise les habitués, c’est vrai. Mais une ardoise notée sur une page qui se perd ne revient jamais, et parfois le client non plus.',
-    fix: ['Une liste fermée de clients autorisés à prendre à crédit.', 'Un plafond par client : au-delà, on ne sert plus à crédit.', 'Une date de remboursement convenue, et une relance polie dès qu’elle passe.'],
+    fix: ['Une liste fermée de clients autorisés à prendre à crédit.', 'Un plafond par client : au-delà, on ne sert plus à crédit.', 'Une date de remboursement convenue, et une relance polie dès qu’elle passe.'],
   },
   {
     id: 'casiers',
     title: 'Les casiers et les consignes',
-    text: 'Un casier vide a une valeur : le fournisseur le facture s’il manque au moment de l’échange. Et les consignes payées par les clients doivent être rendues ou gardées, mais jamais oubliées.',
+    text: 'Un casier vide a une valeur : le fournisseur le facture s’il manque au moment de l’échange. Et les consignes payées par les clients doivent être rendues ou gardées, mais jamais oubliées.',
     fix: ['Compter les casiers vides à chaque livraison, devant le livreur.', 'Noter chaque consigne encaissée et chaque bouteille rendue.'],
   },
   {
     id: 'mobile-money',
     title: 'Le Mobile Money qu’on ne vérifie pas',
-    text: 'Wave, Orange Money, MTN, Moov : les paiements par téléphone évitent les problèmes de monnaie, mais ils compliquent la clôture si personne ne note la référence de chaque transaction. Et un message de paiement montré sur l’écran d’un client n’est pas une preuve que l’argent est arrivé.',
+    text: 'Wave, Orange Money, MTN, Moov : les paiements par téléphone évitent les problèmes de monnaie, mais ils compliquent la clôture si personne ne note la référence de chaque transaction. Et un message de paiement montré sur l’écran d’un client n’est pas une preuve que l’argent est arrivé.',
     fix: ['Vérifier la réception sur le téléphone du maquis, jamais sur celui du client.', 'Noter la référence de la transaction sur la note.', 'À la clôture, comparer le total Mobile Money des notes avec le relevé du compte.'],
   },
   {
     id: 'caisse',
     title: 'La caisse comptée en connaissant le résultat',
-    text: 'Quand la personne qui compte la caisse sait déjà combien elle doit trouver, l’écart a une curieuse tendance à disparaître. Le comptage « à l’aveugle » règle le problème : on compte d’abord, on compare ensuite.',
+    text: 'Quand la personne qui compte la caisse sait déjà combien elle doit trouver, l’écart a une curieuse tendance à disparaître. Le comptage « à l’aveugle » règle le problème : on compte d’abord, on compare ensuite.',
     fix: ['Le caissier compte et note son total sans voir le montant attendu.', 'Le gérant compare ensuite et note l’écart, même quand il est nul.', 'On garde l’historique des écarts, personne par personne.'],
   },
 ]
@@ -69,9 +69,9 @@ const CLOTURE = [
 ]
 
 const FAQ = [
-  ['Comment éviter les vols dans un maquis ?', 'Séparez le stock du magasin et celui du frigo, comptez à l’ouverture et à la clôture, faites signer chaque action par la personne qui la fait, et comptez la caisse à l’aveugle. La plupart des pertes viennent de trous dans le contrôle, pas d’un seul coupable.'],
-  ['Faut-il internet pour utiliser un logiciel de maquis ?', 'Pas forcément. Certaines applications, comme Maquis360, enregistrent tout sur le téléphone et envoient les données dès que le réseau revient.'],
-  ['Faut-il accepter le crédit dans un maquis ?', 'Le crédit garde les habitués, à condition de le limiter : une liste de clients autorisés, un plafond par client et une date de remboursement. Sans ces trois règles, l’ardoise devient une perte.'],
+  ['Comment éviter les vols dans un maquis ?', 'Séparez le stock du magasin et celui du frigo, comptez à l’ouverture et à la clôture, faites signer chaque action par la personne qui la fait, et comptez la caisse à l’aveugle. La plupart des pertes viennent de trous dans le contrôle, pas d’un seul coupable.'],
+  ['Faut-il internet pour utiliser un logiciel de maquis ?', 'Pas forcément. Certaines applications, comme Maquis360, enregistrent tout sur le téléphone et envoient les données dès que le réseau revient.'],
+  ['Faut-il accepter le crédit dans un maquis ?', 'Le crédit garde les habitués, à condition de le limiter : une liste de clients autorisés, un plafond par client et une date de remboursement. Sans ces trois règles, l’ardoise devient une perte.'],
 ]
 
 export default function ArticleMaquis() {
@@ -128,7 +128,7 @@ export default function ArticleMaquis() {
             <p style={{ marginTop: 0, fontWeight: 800 }}>Le calcul qui fait mal</p>
             <p style={{ marginTop: 8, fontSize: 17 }}>
               Une seule bouteille à 700 F qui manque chaque soir, c’est 21 000 F sur un mois de 30 jours, et plus de 250 000 F sur
-              l’année. Faites le calcul avec vos propres chiffres : perte d’un soir × nombre de soirs ouverts.
+              l’année. Faites le calcul avec vos propres chiffres : perte d’un soir × nombre de soirs ouverts.
             </p>
           </aside>
 
@@ -155,15 +155,15 @@ export default function ArticleMaquis() {
             <ol style={{ marginTop: 14, fontSize: 17 }}>{CLOTURE.map((c) => <li key={c}>{c}</li>)}</ol>
           </section>
 
-          <h2>Cahier ou application ?</h2>
+          <h2>Cahier ou application ?</h2>
           <p>
             Un cahier bien tenu peut suffire à un petit maquis où le patron est présent tous les soirs. Dès qu’il y a plusieurs
-            serveurs, un magasin séparé ou un patron souvent absent, le cahier montre ses limites : il ne dit pas qui a fait quoi, il
+            serveurs, un magasin séparé ou un patron souvent absent, le cahier montre ses limites : il ne dit pas qui a fait quoi, il
             peut se perdre, et il ne prévient personne quand quelque chose cloche.
           </p>
           <p>
             Une application de caisse enregistre chaque action avec le nom de la personne, calcule les écarts toute seule et alerte
-            le patron à distance. Choisissez-en une qui fonctionne sans internet : dans un maquis, le réseau coupe toujours au mauvais
+            le patron à distance. Choisissez-en une qui fonctionne sans internet : dans un maquis, le réseau coupe toujours au mauvais
             moment.
           </p>
 

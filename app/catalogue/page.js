@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import CatalogueFilter from '@/components/site/CatalogueFilter'
-import { waLink } from '@/lib/site'
+import { waLink, og } from '@/lib/site'
 
 export const metadata = {
   title: 'Catalogue : une application de gestion pour chaque métier',
   description:
     'Commerce, restauration, élevage, santé, éducation, artisanat, associations, immobilier : le catalogue des applications de gestion Gesconnect, prêtes à l’emploi ou construites sur demande.',
   alternates: { canonical: '/catalogue' },
+  openGraph: og({ title: 'Catalogue : une application de gestion pour chaque métier', description: 'Commerce, restauration, élevage, santé, éducation, artisanat, associations, immobilier : le catalogue des applications de gestion Gesconnect, prêtes à l’emploi ou construites sur demande.', path: '/catalogue' }),
 }
 
 export default function Catalogue() {

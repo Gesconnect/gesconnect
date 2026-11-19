@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import JsonLd from '@/components/site/JsonLd'
 import { APPS, getApp } from '@/lib/apps'
-import { SITE, appLink, waLink } from '@/lib/site'
+import { SITE, appLink, waLink, og } from '@/lib/site'
 
 export function generateStaticParams() {
   return APPS.map((a) => ({ slug: a.slug }))
@@ -15,7 +15,7 @@ export function generateMetadata({ params }) {
     title: { absolute: app.metaTitle },
     description: app.metaDescription,
     alternates: { canonical: `/applications/${app.slug}` },
-    openGraph: { title: app.metaTitle, description: app.metaDescription, url: `${SITE.url}/applications/${app.slug}` },
+    openGraph: og({ title: app.metaTitle, description: app.metaDescription, path: `/applications/${app.slug}`, image: `/og/applications/${app.slug}` }),
   }
 }
 

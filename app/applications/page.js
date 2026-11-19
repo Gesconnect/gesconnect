@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import AppCard from '@/components/site/AppCard'
 import { APPS } from '@/lib/apps'
+import { og } from '@/lib/site'
 
 export const metadata = {
   title: 'Nos applications de gestion',
   description:
     'Cheptelio (élevage), Maquis360 (maquis et bars), Quinca360 (quincailleries), Amicalo (associations) et MonArche (églises) : les applications de gestion prêtes à l’emploi conçues par Gesconnect.',
   alternates: { canonical: '/applications' },
+  openGraph: og({ title: 'Nos applications de gestion', description: 'Cheptelio (élevage), Maquis360 (maquis et bars), Quinca360 (quincailleries), Amicalo (associations) et MonArche (églises) : les applications de gestion prêtes à l’emploi conçues par Gesconnect.', path: '/applications' }),
 }
 
 export default function Applications() {

@@ -1,16 +1,19 @@
 import Link from 'next/link'
 import { GUIDES } from '@/lib/guides'
-import { waLink } from '@/lib/site'
+import { waLink, og } from '@/lib/site'
 
 export const metadata = {
   title: 'Guides pour gérer mieux son commerce, sa ferme ou son association',
   description:
     'Conseils concrets pour les maquis, quincailleries, élevages, associations, églises et PME d’Afrique francophone, écrits par l’équipe Gesconnect.',
   alternates: { canonical: '/guides' },
+  openGraph: og({ title: 'Guides pour gérer mieux son commerce, sa ferme ou son association', description: 'Conseils concrets pour les maquis, quincailleries, élevages, associations, églises et PME d’Afrique francophone, écrits par l’équipe Gesconnect.', path: '/guides' }),
 }
 
 export default function Guides() {
-  const featured = GUIDES.find((g) => g.published)
+  const published = GUIDES.filter((g) => g.published)
+  const featured = published[0]
+  const others = published.slice(1)
   return (
     <>
       <section className="page-head">
@@ -36,6 +39,16 @@ export default function Guides() {
               <p className="muted" style={{ marginTop: 16, fontSize: 14 }}>L’équipe Gesconnect · {featured.readingTime}</p>
             </div>
           </Link>
+
+          {others.length > 0 && (
+            <div className="grid" style={{ gap: 14, marginTop: 20 }}>
+              {others.map((g) => (
+                <Link key={g.slug} href={`/guides/${g.slug}`} className="guide-card" style={{ '--c': g.color, '--ci': g.ink }}>
+                  <small>{g.theme}</small><strong>{g.title}</strong><em>{g.readingTime}</em>
+                </Link>
+              ))}
+            </div>
+          )}
 
           <div className="card-dark" style={{ marginTop: 40, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: '18px 36px' }}>
             <div style={{ flex: '2 1 420px', minWidth: 0 }}>

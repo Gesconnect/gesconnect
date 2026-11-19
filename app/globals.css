@@ -263,11 +263,11 @@ button { font: inherit; }
 .box--navy { background: var(--navy); color: #fff; }
 .box--navy h2 { margin-top: 0; color: #fff; }
 .box--navy ol { line-height: 1.9; }
-.promo { margin-top: 36px; padding: clamp(22px, 3vw, 30px); border-radius: 22px; background: radial-gradient(320px 200px at 90% 10%, rgba(242, 165, 49, .30), transparent 70%), #15120F; color: #F6EFE4; display: flex; flex-wrap: wrap; gap: 18px 24px; align-items: center; }
-.promo img { width: 64px; height: 64px; border-radius: 16px; }
+.promo { margin-top: 36px; padding: clamp(22px, 3vw, 30px); border-radius: 22px; background: radial-gradient(320px 200px at 90% 10%, var(--promo-glow, rgba(242, 165, 49, .30)), transparent 70%), var(--promo-bg, #15120F); color: var(--promo-ink, #F6EFE4); display: flex; flex-wrap: wrap; gap: 18px 24px; align-items: center; }
+.promo img { width: 64px; height: 64px; border-radius: 16px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .28); }
 .promo > div { flex: 1 1 340px; min-width: 0; }
 .promo strong { display: block; font-family: var(--font-title); font-weight: 800; font-size: 22px; color: #fff; }
-.promo p { margin-top: 6px; font-size: 16px; color: #E6DCCB; }
+.promo p { margin-top: 6px; font-size: 16px; color: var(--promo-muted, #E6DCCB); }
 .promo .btn--line { border-color: rgba(246, 239, 228, .35); color: #fff; }
 .article .faq details { border: 1px solid var(--line); }
 
