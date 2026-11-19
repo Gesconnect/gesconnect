@@ -1,74 +1,90 @@
 import Link from 'next/link'
 import AppCard from '@/components/site/AppCard'
+import HomeHero from '@/components/site/HomeHero'
+import LossCalculator from '@/components/site/LossCalculator'
+import JsonLd from '@/components/site/JsonLd'
 import { APPS } from '@/lib/apps'
 import { GUIDES } from '@/lib/guides'
+import { HOME_FAQ } from '@/lib/home'
 import { waLink } from '@/lib/site'
 
 export const metadata = {
   alternates: { canonical: '/' },
 }
 
-const SERVICES = [
-  ['Applications sur mesure', 'Web et mobile, conçues avec vous, livrées et maintenues.'],
-  ['Analyse de données', 'Tableaux de bord et indicateurs pour décider vite.'],
-  ['Conseil et audit digital', 'Un diagnostic clair et un plan d’action chiffré.'],
-  ['Formation des équipes', 'Outils numériques et gestion, en entreprise.'],
+const TRUST = [
+  ['Dès 5 000 F', 'par mois, ou gratuit pour commencer'],
+  ['Essai gratuit', 'sans engagement'],
+  ['Mobile Money', 'Wave, Orange, MTN, Moov'],
+  ['Abidjan', 'équipe sur place, suivi WhatsApp'],
+]
+
+const STEPS = [
+  ['Vous écrivez', 'Un message WhatsApp : votre métier, votre ville. On vous répond vite.'],
+  ['Démo de 20 minutes', 'Sur votre propre téléphone, par WhatsApp ou dans vos locaux à Abidjan.'],
+  ['Mise en place', 'Vos articles, membres ou lots saisis ; votre équipe formée.'],
+  ['Suivi', 'Une question, un souci ? L’équipe répond sur WhatsApp.'],
+]
+
+const PRO = [
+  ['Application sur mesure', 'Construite pour vos processus, sur ordinateur, tablette et téléphone.'],
+  ['Tableau de bord', 'Ventes, stocks, cotisations ou dépenses sur un seul écran, mis à jour.'],
+  ['Analyse ponctuelle', 'Une question, une réponse chiffrée : quel produit, quelle saison, quel client rapporte.'],
+  ['Formation', 'Excel avancé et Power BI, sur vos propres données.'],
 ]
 
 export default function Home() {
   const guides = GUIDES.filter((g) => g.published).slice(0, 2)
+  const items = APPS.map((a) => ({ key: a.slug, name: a.name, short: a.short, icon: a.icon }))
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: HOME_FAQ.map(([q, r]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: r } })),
+  }
+
   return (
     <>
-      <section className="hero">
-        <div className="wrap hero__in">
-          <div className="hero__txt">
-            <p className="hero__kicker">Studio tech ivoirien · Abidjan</p>
-            <h1 className="h1">Votre activité, gérée depuis votre téléphone.</h1>
-            <p className="lead">
-              Des applications de gestion pour les PME, commerces et organisations d’Afrique francophone :
-              légères, pensées pour les petits réseaux, payables en Mobile Money.
-            </p>
-            <div className="btns">
-              <a href="#applications" className="btn btn--green">Trouver mon application</a>
-              <Link href="/contact" className="btn btn--ghost">Demander une démo</Link>
-            </div>
-          </div>
-          <div className="hero__vis">
-            <div className="phone">
-              <div className="phone__screen home-screen">
-                <p style={{ fontSize: 12, color: '#9FB0C8' }}>Bonsoir</p>
-                <p className="title" style={{ fontSize: 18, marginTop: 2 }}>Vos applications</p>
-                <div className="home-screen__grid">
-                  {APPS.map((a) => (
-                    <Link key={a.slug} href={`/applications/${a.slug}`} className="home-screen__app">
-                      <img src={a.icon} alt="" width="52" height="52" fetchPriority="high" />
-                      {a.name}
-                    </Link>
-                  ))}
-                  <Link href="/catalogue" className="home-screen__app">
-                    <span className="home-screen__plus" aria-hidden="true">+</span>
-                    Sur mesure
-                  </Link>
-                </div>
-                <p className="home-screen__notif"><small>Cheptelio · 19:00</small>Rapport du soir envoyé sur WhatsApp</p>
-              </div>
-            </div>
-          </div>
+      <HomeHero items={items} />
+
+      <section className="trust" aria-label="En bref">
+        <div className="wrap trust__in">
+          {TRUST.map(([b, s]) => (
+            <p key={b}><strong>{b}</strong><span>{s}</span></p>
+          ))}
         </div>
       </section>
 
-      <nav className="appsbar" aria-label="Nos applications">
-        <div className="wrap appsbar__in">
-          {APPS.map((a) => (
-            <Link key={a.slug} href={`/applications/${a.slug}`}>
-              <img src={a.icon} alt="" width="36" height="36" />
-              <span><strong>{a.name}</strong><small>{a.short}</small></span>
-            </Link>
-          ))}
+      <section className="sec" style={{ paddingBottom: 0 }}>
+        <div className="wrap">
+          <h2 className="h2" style={{ maxWidth: 760 }}>Le cahier a fait son temps. Votre activité mérite mieux.</h2>
+          <div className="pa">
+            <div className="pa__before">
+              <p className="pa__tag">Aujourd’hui</p>
+              <ul>
+                <li>Un cahier qui se perd, se mouille, et que seul le gérant comprend.</li>
+                <li>Des calculs à la main, des écarts de caisse que personne n’explique.</li>
+                <li>Le patron obligé d’être sur place pour savoir ce qui se passe.</li>
+                <li>Des paiements Mobile Money impossibles à rapprocher des ventes.</li>
+              </ul>
+            </div>
+            <div className="pa__after">
+              <p className="pa__tag">Avec une application Gesconnect</p>
+              <ul>
+                <li>Chaque vente, saisie ou cotisation enregistrée avec le nom de la personne.</li>
+                <li>Les totaux et les écarts calculés tout seuls.</li>
+                <li>Le point de la journée sur votre téléphone, où que vous soyez.</li>
+                <li>Chaque paiement Mobile Money noté avec sa référence et son reçu.</li>
+              </ul>
+            </div>
+          </div>
+          <p className="pa__src">
+            Près de 9 emplois sur 10 sont informels en Côte d’Ivoire. Source :{' '}
+            <a href="https://economie-ivoirienne.ci/activites-sectorielles/emplois.html" target="_blank" rel="noopener">economie-ivoirienne.ci</a>
+          </p>
         </div>
-      </nav>
+      </section>
 
-      <section className="sec" id="applications">
+      <section className="sec" id="applications" style={{ paddingBottom: 0 }}>
         <div className="wrap">
           <div className="sec__head">
             <h2 className="h2">Une application par métier</h2>
@@ -88,38 +104,79 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="sec sec--white">
+      <section className="sec" style={{ paddingBottom: 0 }}>
         <div className="wrap">
-          <blockquote className="quote">
-            « Une application qui continue quand le réseau coupe, ce n’est pas un luxe.{' '}
-            <span>C’est la condition pour qu’on s’en serve.</span> »
-          </blockquote>
-          <p className="muted" style={{ marginTop: 16, fontSize: 15 }}>— Notre principe de conception</p>
-          <div className="rules">
-            <div><h3>Un Android simple suffit</h3><p>Léger, testé sur l’entrée de gamme.</p></div>
-            <div><h3>Quand le réseau coupe</h3><p>Cheptelio, Maquis360, Amicalo et MonArche continuent sans réseau.</p></div>
-            <div><h3>Mobile Money intégré</h3><p>Wave, Orange, MTN, Moov, avec reçus.</p></div>
-            <div><h3>Une équipe à Abidjan</h3><p>Mise en place, formation, WhatsApp.</p></div>
+          <LossCalculator />
+        </div>
+      </section>
+
+      <section className="sec" style={{ paddingBottom: 0 }}>
+        <div className="wrap">
+          <h2 className="h2">Comment ça se passe</h2>
+          <ol className="steps4">
+            {STEPS.map(([t, d], i) => (
+              <li key={t}><span>{i + 1}</span><h3>{t}</h3><p>{d}</p></li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="pro" id="entreprises">
+        <div className="wrap pro__in">
+          <div className="pro__txt">
+            <p className="eyebrow" style={{ color: 'var(--mint)' }}>Pour les entreprises</p>
+            <h2 className="h2" style={{ marginTop: 10 }}>Vos outils sur mesure, et des chiffres qui parlent.</h2>
+            <div className="pro__list">
+              {PRO.map(([t, d]) => (
+                <div key={t}><h3>{t}</h3><p>{d}</p></div>
+              ))}
+            </div>
+            <div className="btns" style={{ marginTop: 24 }}>
+              <a className="btn btn--green" href={waLink('Bonjour Gesconnect, je représente une entreprise et j’aimerais parler d’un projet.')} target="_blank" rel="noopener">Parler de mon projet</a>
+              <Link className="btn btn--ghost" href="/services">Tous nos services</Link>
+            </div>
+          </div>
+          <figure className="pro__dash" aria-label="Illustration d’un tableau de bord">
+            <figcaption><span>Tableau de bord</span><span>Illustration</span></figcaption>
+            <div className="pro__kpis">
+              <p><small>Chiffre d’affaires</small><i style={{ width: '72%' }} /></p>
+              <p><small>Marge</small><i style={{ width: '48%' }} /></p>
+              <p><small>Impayés</small><i style={{ width: '26%' }} /></p>
+            </div>
+            <div className="pro__bars" aria-hidden="true">
+              {[42, 55, 48, 70, 64, 88].map((h, i) => <b key={i} style={{ height: `${h}%` }} className={i === 5 ? 'on' : undefined} />)}
+            </div>
+            <p className="pro__note">Les vrais montants viennent de vos données.</p>
+          </figure>
+        </div>
+      </section>
+
+      <section className="sec" style={{ paddingBottom: 0 }}>
+        <div className="wrap">
+          <div className="founder">
+            <div>
+              <p className="eyebrow" style={{ color: '#14532D' }}>Places limitées à 10 entreprises</p>
+              <h2 className="h2" style={{ marginTop: 8, fontSize: 'clamp(26px, 3.4vw, 40px)' }}>Devenez Client Fondateur</h2>
+              <p style={{ marginTop: 10, color: '#1F3B2A' }}>Jusqu’à 40 % de réduction sur votre abonnement, à vie. Vos idées entrent dans l’application, et vous parlez directement aux fondateurs.</p>
+            </div>
+            <Link className="btn btn--navy" href="/contact#client-fondateur">Je veux une place</Link>
           </div>
         </div>
       </section>
 
-      <section className="sec">
+      <section className="sec" style={{ paddingBottom: 0 }}>
         <div className="wrap split">
-          <div>
-            <h2 className="h2">Au-delà des applications</h2>
-            <p className="muted" style={{ marginTop: 14, maxWidth: 400, fontSize: 17 }}>Un logiciel à votre mesure, des chiffres qui parlent, des équipes formées.</p>
-            <Link href="/services" className="link-arrow" style={{ marginTop: 8 }}>Tous nos services →</Link>
-          </div>
-          <div className="grid" style={{ '--min': '250px', gap: 14 }}>
-            {SERVICES.map(([t, d]) => (
-              <Link key={t} href="/services" className="tile"><strong>{t}</strong><span>{d}</span></Link>
+          <h2 className="h2">Vos questions</h2>
+          <div className="faq">
+            {HOME_FAQ.map(([q, r]) => (
+              <details key={q}><summary>{q}</summary><p>{r}</p></details>
             ))}
           </div>
         </div>
+        <JsonLd data={faqLd} />
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }}>
+      <section className="sec">
         <div className="wrap">
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 12, marginBottom: 24 }}>
             <h2 className="h2" style={{ fontSize: 'clamp(26px, 3.6vw, 44px)' }}>Guides pour gérer mieux</h2>
