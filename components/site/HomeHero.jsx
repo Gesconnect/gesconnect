@@ -5,8 +5,9 @@ import { METIERS, METIER_ORDER } from '@/lib/home'
 import { waLink } from '@/lib/site'
 import { track } from '@/lib/track'
 
-// Haut de l'accueil : le visiteur choisit son métier dans la barre du bas,
+// Haut de l'accueil : le visiteur choisit son métier (dans la barre du bas ou directement sur un écran),
 // et le haut de page prend les couleurs, le message et la démo de l'application.
+// Sur grand écran, la même application s'affiche à l'identique sur l'ordinateur, la tablette et le téléphone.
 // items : [{ key, name, short, icon }] fourni par la page (évite d'embarquer toutes les données des apps).
 
 function Go({ href, className, children, onClick }) {
@@ -43,14 +44,15 @@ export default function HomeHero({ items }) {
     return () => clearInterval(id)
   }, [key, rows.length])
 
-  function choose(k) {
-    const next = key === k ? 'general' : k
+  function select(next) {
     setKey(next)
     setStep(0)
     track('choix_metier', { metier: next })
     const top = ref.current ? ref.current.getBoundingClientRect().top : 0
     if (top < -40) ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
+  const choose = (k) => select(key === k ? 'general' : k)
+  const goHome = () => select('general')
 
   const t = m.t
   const vars = {
@@ -58,18 +60,70 @@ export default function HomeHero({ items }) {
     '--hx-accent': t.accent, '--hx-on': t.onAccent, '--hx-line': t.line,
   }
   const screen = m.screen || {}
-  const chartOn = t.accent === '#FFFFFF' ? '#3B82F6' : t.accent
-  const chartOff = '#DCE3EE'
-  // Couleur de la barre latérale et icône de l'application affichée sur l'ordinateur et la tablette
-  const sideBg = key === 'quinca360' ? '#0B2545' : ['general', 'entreprise', 'autre'].includes(key) ? '#0F1E4A' : t.bg.split('), ').pop()
-  const appIcon = icons[key] || '/logo-g.webp'
   const shown = rows.slice(0, Math.min(step, rows.length))
+  const gridApps = items.filter((i) => i.icon)
+
+  // Le même écran, affiché dans chaque appareil (téléphone, tablette, ordinateur).
+  function screenFor(device) {
+    if (key === 'general') {
+      return (
+        <div className={`scr scr--${device} scr--home`}>
+          <p className="scr__hello">Bonsoir</p>
+          <p className="scr__title">Vos applications</p>
+          <div className="scr__apps">
+            {gridApps.map((i) => (
+              <button key={i.key} type="button" className="scr__app" onClick={() => choose(i.key)} tabIndex={device === 'phone' ? 0 : -1}>
+                <img src={i.icon} alt="" width="52" height="52" fetchPriority={device === 'phone' ? 'high' : undefined} />
+                <span>{i.name}</span>
+              </button>
+            ))}
+            <button type="button" className="scr__app" onClick={() => choose('autre')} tabIndex={device === 'phone' ? 0 : -1}>
+              <span className="scr__plus" aria-hidden="true">+</span>
+              <span>Votre métier</span>
+            </button>
+          </div>
+          <p className="scr__hint">Touchez une application pour la voir travailler.</p>
+        </div>
+      )
+    }
+    return (
+      <div className={`scr scr--${device} scr--demo`} style={{ background: screen.bg, color: screen.ink }}>
+        <div className="scr__head">
+          <button type="button" className="scr__back" onClick={goHome} aria-label="Revenir à toutes les applications" tabIndex={device === 'phone' ? 0 : -1}>
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          {icons[key] ? <img src={icons[key]} alt="" width="34" height="34" /> : null}
+          <div className="scr__id">
+            <small>{screen.sub}</small>
+            <strong>{screen.title}</strong>
+          </div>
+        </div>
+        <div className="scr__rows" aria-live={device === 'phone' ? 'polite' : undefined}>
+          {shown.map(([k, v]) => (
+            <p key={k} className="scr__row" style={{ background: screen.row }}><span>{k}</span><strong>{v}</strong></p>
+          ))}
+        </div>
+        <div className="scr__foot">
+          {step > rows.length ? (
+            <p className="scr__banner" style={{ background: m.banner.bg, color: m.banner.ink }}><i aria-hidden="true" />{m.banner.text}</p>
+          ) : null}
+          <button type="button" className="scr__replay" onClick={() => setStep(0)} tabIndex={device === 'phone' ? 0 : -1}>{m.replay}</button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div ref={ref}>
       <section className="hx" style={vars}>
         <div className="wrap hx__in">
           <div className="hx__txt">
+            {key !== 'general' ? (
+              <button type="button" className="hx__back" onClick={goHome}>
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                Toutes les applications
+              </button>
+            ) : null}
             <p className="hx__kicker">{m.kicker}</p>
             {m.slogan ? <p className="hx__slogan">{m.slogan}</p> : null}
             <h1 className="h1">{m.title}</h1>
@@ -85,94 +139,25 @@ export default function HomeHero({ items }) {
           </div>
 
           <div className="hx__vis">
-            <div className="devices">
-            {/* Ordinateur portable et tablette dessinés comme de vrais appareils (grand écran seulement) */}
-            <div className="mb" aria-hidden="true">
-              <div className="mb__lid">
-                <i className="mb__cam" />
-                <div className="mb__screen">
-                  <div className="ui">
-                    <div className="ui__side" style={{ background: sideBg }}>
-                      <img src={appIcon} alt="" width="26" height="26" />
-                      <span className="on" /><span /><span /><span />
-                    </div>
-                    <div className="ui__main">
-                      <div className="ui__bar">
-                        <strong>{m.screens.laptop.title}</strong>
-                        <em>Aujourd’hui</em>
-                        <i className="ui__avatar" />
-                      </div>
-                      <div className="ui__kpis">
-                        {m.screens.laptop.kpis.map(([k, v]) => <p key={k}><small>{k}</small><b>{v}</b></p>)}
-                      </div>
-                      <div className="ui__chart">
-                        <div className="ui__grid"><i /><i /><i /></div>
-                        <div className="ui__bars">
-                          {[38, 52, 46, 64, 58, 80, 72, 92].map((h, i) => <b key={i} style={{ height: `${h}%`, background: i === 7 ? chartOn : chartOff }} />)}
-                        </div>
-                        <div className="ui__x"><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span><span>Auj.</span></div>
-                      </div>
-                    </div>
-                  </div>
+            <div className="trio">
+              {/* Ordinateur portable et tablette : grand écran seulement. Ils affichent le même écran que le téléphone. */}
+              <div className="mb" aria-hidden="true">
+                <div className="mb__lid">
+                  <i className="mb__cam" />
+                  <div className="mb__screen">{screenFor('laptop')}</div>
                 </div>
+                <div className="mb__hinge" />
+                <div className="mb__base"><i /></div>
               </div>
-              <div className="mb__hinge" />
-              <div className="mb__base"><i /></div>
-            </div>
-            <div className="tab" aria-hidden="true">
-              <i className="tab__cam" />
-              <div className="tab__screen">
-                <div className="tab__bar" style={{ background: sideBg }}>
-                  <img src={appIcon} alt="" width="18" height="18" />
-                  <strong>{m.screens.tablet.title}</strong>
-                </div>
-                <div className="tab__list">
-                  {m.screens.tablet.rows.map(([k, v]) => <p key={k}><span>{k}</span><b>{v}</b></p>)}
-                </div>
+              <div className="tab" aria-hidden="true">
+                <i className="tab__cam" />
+                <div className="tab__screen">{screenFor('tablet')}</div>
+              </div>
+              <div className="ph">
+                <i className="ph__island" aria-hidden="true" />
+                <div className="ph__screen">{screenFor('phone')}</div>
               </div>
             </div>
-            <div className={m.laptop ? 'device device--laptop' : 'device'}>
-              {key === 'general' ? (
-                <div className="device__screen home-screen">
-                  <p style={{ fontSize: 12, color: '#9FB0C8' }}>Bonsoir</p>
-                  <p className="title" style={{ fontSize: 18, marginTop: 2 }}>Vos applications</p>
-                  <div className="home-screen__grid">
-                    {items.filter((i) => i.icon).map((i) => (
-                      <button key={i.key} type="button" className="home-screen__app" onClick={() => choose(i.key)}>
-                        <img src={i.icon} alt="" width="52" height="52" fetchPriority="high" />
-                        {i.name}
-                      </button>
-                    ))}
-                    <button type="button" className="home-screen__app" onClick={() => choose('autre')}>
-                      <span className="home-screen__plus" aria-hidden="true">+</span>
-                      Votre métier
-                    </button>
-                  </div>
-                  <p className="home-screen__notif">Touchez une application pour la voir travailler.</p>
-                </div>
-              ) : (
-                <div className="device__screen demo" style={{ background: screen.bg, color: screen.ink }}>
-                  <div className="demo__head">
-                    {icons[key] ? <img src={icons[key]} alt="" width="34" height="34" /> : null}
-                    <div>
-                      <small>{screen.sub}</small>
-                      <strong>{screen.title}</strong>
-                    </div>
-                  </div>
-                  <div className="demo__rows" aria-live="polite">
-                    {shown.map(([k, v]) => (
-                      <p key={k} className="demo__row" style={{ background: screen.row }}><span>{k}</span><strong>{v}</strong></p>
-                    ))}
-                  </div>
-                  {step > rows.length ? (
-                    <p className="demo__banner" style={{ background: m.banner.bg, color: m.banner.ink }}><i aria-hidden="true" />{m.banner.text}</p>
-                  ) : null}
-                  <button type="button" className="demo__replay" onClick={() => setStep(0)}>{m.replay}</button>
-                </div>
-              )}
-            </div>
-            </div>
-            {m.laptop ? <div className="device__base" aria-hidden="true" /> : null}
           </div>
         </div>
       </section>
