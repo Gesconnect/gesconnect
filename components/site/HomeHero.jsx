@@ -58,6 +58,11 @@ export default function HomeHero({ items }) {
     '--hx-accent': t.accent, '--hx-on': t.onAccent, '--hx-line': t.line,
   }
   const screen = m.screen || {}
+  const chartOn = t.accent === '#FFFFFF' ? '#3B82F6' : t.accent
+  const chartOff = '#DCE3EE'
+  // Couleur de la barre latérale et icône de l'application affichée sur l'ordinateur et la tablette
+  const sideBg = key === 'quinca360' ? '#0B2545' : ['general', 'entreprise', 'autre'].includes(key) ? '#0F1E4A' : t.bg.split('), ').pop()
+  const appIcon = icons[key] || '/logo-g.webp'
   const shown = rows.slice(0, Math.min(step, rows.length))
 
   return (
@@ -80,6 +85,52 @@ export default function HomeHero({ items }) {
           </div>
 
           <div className="hx__vis">
+            <div className="devices">
+            {/* Ordinateur portable et tablette dessinés comme de vrais appareils (grand écran seulement) */}
+            <div className="mb" aria-hidden="true">
+              <div className="mb__lid">
+                <i className="mb__cam" />
+                <div className="mb__screen">
+                  <div className="ui">
+                    <div className="ui__side" style={{ background: sideBg }}>
+                      <img src={appIcon} alt="" width="26" height="26" />
+                      <span className="on" /><span /><span /><span />
+                    </div>
+                    <div className="ui__main">
+                      <div className="ui__bar">
+                        <strong>{m.screens.laptop.title}</strong>
+                        <em>Aujourd’hui</em>
+                        <i className="ui__avatar" />
+                      </div>
+                      <div className="ui__kpis">
+                        {m.screens.laptop.kpis.map(([k, v]) => <p key={k}><small>{k}</small><b>{v}</b></p>)}
+                      </div>
+                      <div className="ui__chart">
+                        <div className="ui__grid"><i /><i /><i /></div>
+                        <div className="ui__bars">
+                          {[38, 52, 46, 64, 58, 80, 72, 92].map((h, i) => <b key={i} style={{ height: `${h}%`, background: i === 7 ? chartOn : chartOff }} />)}
+                        </div>
+                        <div className="ui__x"><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span><span>Auj.</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb__hinge" />
+              <div className="mb__base"><i /></div>
+            </div>
+            <div className="tab" aria-hidden="true">
+              <i className="tab__cam" />
+              <div className="tab__screen">
+                <div className="tab__bar" style={{ background: sideBg }}>
+                  <img src={appIcon} alt="" width="18" height="18" />
+                  <strong>{m.screens.tablet.title}</strong>
+                </div>
+                <div className="tab__list">
+                  {m.screens.tablet.rows.map(([k, v]) => <p key={k}><span>{k}</span><b>{v}</b></p>)}
+                </div>
+              </div>
+            </div>
             <div className={m.laptop ? 'device device--laptop' : 'device'}>
               {key === 'general' ? (
                 <div className="device__screen home-screen">
@@ -119,6 +170,7 @@ export default function HomeHero({ items }) {
                   <button type="button" className="demo__replay" onClick={() => setStep(0)}>{m.replay}</button>
                 </div>
               )}
+            </div>
             </div>
             {m.laptop ? <div className="device__base" aria-hidden="true" /> : null}
           </div>

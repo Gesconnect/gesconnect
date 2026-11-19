@@ -496,3 +496,67 @@ button { font: inherit; }
 .appcard .link-arrow { position: relative; z-index: 1; }
 /* Accueil sur téléphone : cartes plus courtes (la démo est déjà en haut de page) */
 @media (max-width: 600px) { .home-apps .appcard__shot { display: none; } }
+
+/* Haut de l'accueil : téléphone + ordinateur portable + tablette, dessinés comme de vrais appareils */
+.devices { position: relative; display: flex; flex-direction: column; align-items: center; }
+.mb, .tab { display: none; }
+@media (min-width: 1200px) {
+  .hx__txt { flex: 1 1 460px; }
+  .hx__vis { flex: 0 0 560px; }
+  .devices { display: block; width: 560px; height: 450px; }
+  .devices .device { position: absolute; left: 0; top: 24px; width: 224px; z-index: 3; }
+  .devices .device--laptop { width: 224px; border-radius: 38px; padding: 11px; }
+  .devices .device--laptop .device__screen { border-radius: 28px; min-height: 380px; }
+  .hx__vis > .device__base { display: none; }
+
+  /* Ordinateur portable */
+  .mb { display: block; position: absolute; left: 176px; top: 0; width: 384px; z-index: 1; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .45)); }
+  .mb__lid { position: relative; padding: 12px 12px 14px; border-radius: 16px 16px 4px 4px; background: #0B0D12; box-shadow: inset 0 0 0 1px #2E323B, inset 0 0 0 2px #0B0D12, inset 0 0 0 3px #3A3F49; }
+  .mb__cam { position: absolute; top: 5px; left: 50%; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: #1E2633; box-shadow: inset 0 0 0 1px #34404F; }
+  .mb__screen { height: 226px; border-radius: 3px; overflow: hidden; background: #fff; }
+  .mb__hinge { height: 5px; margin: 0 6px; background: linear-gradient(#1A1D24, #3A3F48); border-radius: 0 0 2px 2px; }
+  .mb__base { position: relative; height: 12px; margin: 0 -28px; border-radius: 2px 2px 14px 14px / 2px 2px 10px 10px; background: linear-gradient(180deg, #E6E8EC 0%, #C5C9D0 55%, #9CA2AC 100%); box-shadow: inset 0 1px 0 #F7F8FA; }
+  .mb__base i { position: absolute; left: 50%; top: 0; width: 76px; height: 5px; margin-left: -38px; border-radius: 0 0 7px 7px; background: linear-gradient(#A6ACB5, #BFC4CB); }
+
+  /* Interface de l'application sur l'ordinateur */
+  .ui { display: flex; height: 100%; font-size: 10px; color: var(--navy); }
+  .ui__side { width: 40px; flex: none; display: flex; flex-direction: column; align-items: center; gap: 9px; padding-top: 10px; transition: background .35s ease; }
+  .ui__side img { width: 24px; height: 24px; border-radius: 7px; margin-bottom: 4px; }
+  .ui__side span { width: 16px; height: 4px; border-radius: 3px; background: rgba(255, 255, 255, .35); }
+  .ui__side span.on { background: #fff; width: 20px; }
+  .ui__main { flex: 1; min-width: 0; padding: 9px 11px 8px; display: flex; flex-direction: column; gap: 8px; background: #F6F8FB; }
+  .ui__bar { display: flex; align-items: center; gap: 8px; }
+  .ui__bar strong { font-family: var(--font-title); font-weight: 800; font-size: 12px; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ui__bar em { font-style: normal; padding: 2px 7px; border-radius: 99px; background: #fff; border: 1px solid #E3E8F0; font-size: 9px; color: var(--muted); }
+  .ui__avatar { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, #C9D3E3, #9FB0C8); }
+  .ui__kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .ui__kpis p { padding: 6px 7px; border-radius: 7px; background: #fff; border: 1px solid #E8EDF4; min-width: 0; }
+  .ui__kpis small { display: block; font-size: 8.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ui__kpis b { display: block; margin-top: 1px; font-family: var(--font-title); font-weight: 800; font-size: 12px; white-space: nowrap; }
+  .ui__chart { position: relative; flex: 1; display: flex; flex-direction: column; padding: 6px 7px 3px; border-radius: 7px; background: #fff; border: 1px solid #E8EDF4; }
+  .ui__grid { position: absolute; inset: 6px 7px 16px; display: flex; flex-direction: column; justify-content: space-between; }
+  .ui__grid i { height: 1px; background: #EEF2F7; }
+  .ui__bars { position: relative; flex: 1; display: flex; align-items: flex-end; gap: 5px; }
+  .ui__bars b { flex: 1; border-radius: 3px 3px 0 0; transition: background .35s ease; }
+  .ui__x { display: flex; gap: 5px; margin-top: 3px; }
+  .ui__x span { flex: 1; text-align: center; font-size: 7.5px; color: #8A96AD; }
+
+  /* Tablette */
+  .tab { display: block; position: absolute; right: 0; bottom: 0; width: 250px; z-index: 2; padding: 10px 12px; border-radius: 20px; background: #0B0D12; box-shadow: inset 0 0 0 1px #2E323B, inset 0 0 0 2px #0B0D12, inset 0 0 0 3px #A7ADB6, 0 26px 50px rgba(0, 0, 0, .45); }
+  .tab__cam { position: absolute; left: 5px; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: #1E2633; box-shadow: inset 0 0 0 1px #34404F; }
+  .tab__screen { border-radius: 8px; overflow: hidden; background: #F6F8FB; color: var(--navy); }
+  .tab__bar { display: flex; align-items: center; gap: 7px; padding: 8px 10px; color: #fff; transition: background .35s ease; }
+  .tab__bar img { border-radius: 5px; }
+  .tab__bar strong { font-family: var(--font-title); font-weight: 800; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tab__list { padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+  .tab__list p { display: flex; justify-content: space-between; gap: 8px; padding: 6px 8px; border-radius: 6px; background: #fff; border: 1px solid #E8EDF4; font-size: 10.5px; }
+  .tab__list b { white-space: nowrap; }
+}
+@media (prefers-reduced-motion: reduce) { .ui__bars b, .ui__side, .tab__bar { transition: none; } }
+@media (min-width: 1200px) {
+  /* Téléphone plus réaliste : caméra en haut et boutons sur les côtés */
+  .devices .device::before { content: ''; position: absolute; top: 19px; left: 50%; width: 64px; height: 18px; margin-left: -32px; border-radius: 10px; background: #05070B; z-index: 2; }
+  .devices .device::after { content: ''; position: absolute; right: -3px; top: 120px; width: 3px; height: 54px; border-radius: 0 3px 3px 0; background: #2A303B; box-shadow: -230px -30px 0 0 #2A303B, -230px 30px 0 0 #2A303B; }
+  .devices .device > .device__screen { padding-top: 40px; }
+  .mb { filter: drop-shadow(0 34px 38px rgba(0, 0, 0, .5)); }
+}
