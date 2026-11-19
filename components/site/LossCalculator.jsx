@@ -6,12 +6,14 @@ import { track } from '@/lib/track'
 // « Combien vous perdez sans le savoir ? » : le visiteur entre ses propres chiffres.
 // Rien n'est enregistré ; le résultat peut être envoyé sur WhatsApp.
 
-const fmt = (n) => `${Math.round(Math.max(0, n || 0)).toLocaleString('fr-FR')} F`
+const fmt = (n) => `${Math.round(Math.max(0, n || 0)).toLocaleString('fr-FR').replace(/\s/g, '\u00a0')}\u00a0F`
 
 export default function LossCalculator() {
   const [tab, setTab] = useState('maquis')
-  const [v, setV] = useState({ ecart: 700, soirs: 30, sujets: 500, morts: 2, prix: 2500 })
-  const set = (k) => (e) => setV({ ...v, [k]: Number(e.target.value) || 0 })
+  const [raw, setRaw] = useState({ ecart: '700', soirs: '30', sujets: '500', morts: '2', prix: '2500' })
+  const set = (k) => (e) => setRaw({ ...raw, [k]: e.target.value })
+  // Valeurs utilisées pour le calcul : vide ou négatif = 0, virgule acceptée.
+  const v = Object.fromEntries(Object.entries(raw).map(([k, x]) => [k, Math.max(0, Number(String(x).replace(',', '.')) || 0)]))
 
   let fields, label, result, line, compare, msg
   if (tab === 'maquis') {
@@ -23,7 +25,7 @@ export default function LossCalculator() {
     label = 'Ce qui part chaque mois'
     result = fmt(mois)
     line = `Soit ${fmt(mois * 12)} sur un an.`
-    compare = 'Maquis360 commence à 5 000 F par mois, après 30 jours d’essai gratuit.'
+    compare = 'Maquis360 commence à 5 000 F par mois, après 30 jours d’essai gratuit.'
     msg = `Bonjour Gesconnect, j’ai fait le calcul sur votre site : environ ${fmt(mois)} d’écarts par mois dans mon maquis. J’aimerais voir Maquis360.`
   } else {
     fields = [
@@ -53,7 +55,7 @@ export default function LossCalculator() {
           {fields.map(([k, l]) => (
             <label key={k}>
               {l}
-              <input type="number" inputMode="numeric" min="0" value={v[k]} onChange={set(k)} />
+              <input type="text" inputMode="decimal" value={raw[k]} onChange={set(k)} />
             </label>
           ))}
         </div>

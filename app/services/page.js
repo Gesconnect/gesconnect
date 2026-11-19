@@ -4,9 +4,9 @@ import { waLink, og } from '@/lib/site'
 export const metadata = {
   title: 'Services : développement sur mesure, données, conseil et formation',
   description:
-    'Applications web et mobiles sur mesure, sites internet, intégration de l’IA, analyse de données, conseil, audit digital et formation des équipes, par Gesconnect à Abidjan.',
+    'Applications sur mesure, sites internet, IA, analyse de données, conseil, audit digital et formation des équipes, par Gesconnect à Abidjan.',
   alternates: { canonical: '/services' },
-  openGraph: og({ title: 'Services : développement sur mesure, données, conseil et formation', description: 'Applications web et mobiles sur mesure, sites internet, intégration de l’IA, analyse de données, conseil, audit digital et formation des équipes, par Gesconnect à Abidjan.', path: '/services' }),
+  openGraph: og({ title: 'Services : développement sur mesure, données, conseil et formation', description: 'Applications sur mesure, sites internet, IA, analyse de données, conseil, audit digital et formation des équipes, par Gesconnect à Abidjan.', path: '/services' }),
 }
 
 const GROUPS = [

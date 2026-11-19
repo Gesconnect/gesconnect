@@ -34,12 +34,12 @@ export default function HomeHero({ items }) {
   const rows = m.rows || []
   const icons = Object.fromEntries(items.map((i) => [i.key, i.icon]))
 
-  // La démo avance toute seule, une ligne toutes les 1,2 s (tout d'un coup si l'appareil demande moins d'animations).
+  // La démo avance toute seule, une ligne toutes les 0,9 s (tout d'un coup si l'appareil demande moins d'animations).
   useEffect(() => {
     if (!rows.length) return undefined
     const calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (calm) { setStep(rows.length + 1); return undefined }
-    const id = setInterval(() => setStep((s) => (s > rows.length ? s : s + 1)), 1200)
+    const id = setInterval(() => setStep((s) => (s > rows.length ? s : s + 1)), 900)
     return () => clearInterval(id)
   }, [key, rows.length])
 

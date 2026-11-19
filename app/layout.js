@@ -40,7 +40,7 @@ export const metadata = {
     template: '%s | Gesconnect',
   },
   description:
-    'Studio tech ivoirien : applications de gestion qui marchent sur un téléphone simple et encaissent en Mobile Money. Cheptelio, Maquis360, Quinca360, Amicalo, MonArche.',
+    'Studio tech ivoirien : applications de gestion pensées pour le téléphone, payables en Mobile Money. Cheptelio, Maquis360, Quinca360, Amicalo, MonArche.',
   applicationName: 'Gesconnect',
   alternates: { canonical: '/' },
   openGraph: og({

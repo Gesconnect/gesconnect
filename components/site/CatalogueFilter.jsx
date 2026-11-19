@@ -25,9 +25,12 @@ export default function CatalogueFilter() {
             <div className="grid" style={{ '--min': '280px', gap: 14, marginBottom: 40 }}>
               {live.map((a) => (
                 <Link key={a.slug} href={`/applications/${a.slug}`} className="cat-live">
-                  <img src={`/apps/${a.slug}.webp`} alt="" width="52" height="52" loading="lazy" />
-                  <span><strong>{a.name}</strong><small>{a.metier}</small></span>
-                  <span className="pill pill--ok" style={{ flex: 'none', fontSize: 12 }}>Essai gratuit</span>
+                  <img src={`/apps/${a.slug}.webp`} alt="" width="52" height="52" />
+                  <span>
+                    <strong>{a.name}</strong>
+                    <small>{a.metier}</small>
+                    <em className="pill pill--ok" style={{ marginTop: 8, fontSize: 12, fontStyle: 'normal' }}>{a.offer}</em>
+                  </span>
                 </Link>
               ))}
             </div>
@@ -46,7 +49,7 @@ export default function CatalogueFilter() {
                   <span><strong>{a.name}</strong><small>{a.sector}</small></span>
                   <a
                     className="pill pill--soon"
-                    style={{ flex: 'none', fontSize: 12, textDecoration: 'none', minHeight: 36, display: 'inline-flex', alignItems: 'center' }}
+                    style={{ flex: 'none', fontSize: 12, textDecoration: 'none', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}
                     href={waLink(`Bonjour Gesconnect, je suis intéressé par une application de gestion pour : ${a.name}.`)}
                     target="_blank"
                     rel="noopener"

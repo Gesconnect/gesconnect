@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import AppCard from '@/components/site/AppCard'
+import DashboardMock from '@/components/site/DashboardMock'
 import HomeHero from '@/components/site/HomeHero'
 import LossCalculator from '@/components/site/LossCalculator'
 import JsonLd from '@/components/site/JsonLd'
@@ -13,7 +14,7 @@ export const metadata = {
 }
 
 const TRUST = [
-  ['Dès 5 000 F', 'par mois, ou gratuit pour commencer'],
+  ['Dès 5 000 F', 'par mois, ou gratuit pour commencer'],
   ['Essai gratuit', 'sans engagement'],
   ['Mobile Money', 'Wave, Orange, MTN, Moov'],
   ['Abidjan', 'équipe sur place, suivi WhatsApp'],
@@ -136,18 +137,7 @@ export default function Home() {
               <Link className="btn btn--ghost" href="/services">Tous nos services</Link>
             </div>
           </div>
-          <figure className="pro__dash" aria-label="Illustration d’un tableau de bord">
-            <figcaption><span>Tableau de bord</span><span>Illustration</span></figcaption>
-            <div className="pro__kpis">
-              <p><small>Chiffre d’affaires</small><i style={{ width: '72%' }} /></p>
-              <p><small>Marge</small><i style={{ width: '48%' }} /></p>
-              <p><small>Impayés</small><i style={{ width: '26%' }} /></p>
-            </div>
-            <div className="pro__bars" aria-hidden="true">
-              {[42, 55, 48, 70, 64, 88].map((h, i) => <b key={i} style={{ height: `${h}%` }} className={i === 5 ? 'on' : undefined} />)}
-            </div>
-            <p className="pro__note">Les vrais montants viennent de vos données.</p>
-          </figure>
+          <DashboardMock />
         </div>
       </section>
 
