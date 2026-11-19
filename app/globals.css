@@ -615,3 +615,9 @@ button { font: inherit; }
   .scr--laptop .scr__banner { flex: 1; font-size: 11px; }
   .scr--laptop .scr__replay { font-size: 11px; min-height: 34px; margin-left: auto; }
 }
+
+/* Barre des métiers sur grand écran : chaque métier tient sur une ligne (nom + description) */
+@media (min-width: 1200px) {
+  .appsbar a, .appsbar button { flex: 1 1 auto; gap: 10px; padding-right: 8px; }
+  .appsbar small { white-space: nowrap; }
+}
