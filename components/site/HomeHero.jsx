@@ -66,6 +66,7 @@ export default function HomeHero({ items }) {
         <div className="wrap hx__in">
           <div className="hx__txt">
             <p className="hx__kicker">{m.kicker}</p>
+            {m.slogan ? <p className="hx__slogan">{m.slogan}</p> : null}
             <h1 className="h1">{m.title}</h1>
             <p className="lead">{m.lead}</p>
             <div className="btns">

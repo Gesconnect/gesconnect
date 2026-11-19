@@ -24,6 +24,7 @@ export default function Footer({ waMessage }) {
               <img src="/logo-g.webp" alt="" width="26" height="30" loading="lazy" />
               <span style={{ fontSize: 18 }}>Gesconnect</span>
             </Link>
+            <p className="ftr__slogan">Connectez votre entreprise, automatisez votre succès.</p>
             <p style={{ marginTop: 10 }}>{SITE.legalName} · Studio tech ivoirien · {SITE.city}, {SITE.country}</p>
           </div>
           <div>
